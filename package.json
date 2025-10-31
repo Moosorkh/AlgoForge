@@ -1,0 +1,21 @@
+{
+  "name": "algoforge",
+  "version": "1.0.0",
+  "description": "Interactive algorithm learning platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd backend && npm run dev",
+    "client:dev": "cd frontend && npm run dev",
+    "server:build": "cd backend && npm run build",
+    "client:build": "cd frontend && npm run build",
+    "server:start": "cd backend && npm start",
+    "client:start": "cd frontend && npm start"
+  },
+  "keywords": ["algorithms", "education", "visualization"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
