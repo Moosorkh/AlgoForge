@@ -1,17 +1,23 @@
-import { db } from './config/db';
+import { db } from "./config/db";
 
 async function addColumn() {
   try {
     // Add main_category column
-    await db.query('ALTER TABLE algorithms ADD COLUMN main_category VARCHAR(50) DEFAULT "Algorithms"');
-    console.log('✅ Column added');
+    await db.query(
+      'ALTER TABLE algorithms ADD COLUMN main_category VARCHAR(50) DEFAULT "Algorithms"'
+    );
+    console.log("✅ Column added");
 
     // Update existing records
-    await db.query('UPDATE algorithms SET main_category = "Algorithms" WHERE main_category IS NULL OR main_category = ""');
-    console.log('✅ Updated existing records');
+    await db.query(
+      'UPDATE algorithms SET main_category = "Algorithms" WHERE main_category IS NULL OR main_category = ""'
+    );
+    console.log("✅ Updated existing records");
 
     // Add React content
-    const reactExists = await db.query('SELECT id FROM algorithms WHERE name = "React.js Fundamentals"');
+    const reactExists = await db.query(
+      'SELECT id FROM algorithms WHERE name = "React.js Fundamentals"'
+    );
     if (Array.isArray(reactExists[0]) && reactExists[0].length === 0) {
       // Insert React frameworks
       await db.query(`
@@ -21,7 +27,7 @@ async function addColumn() {
         ('React Hooks Deep Dive', 'Master React Hooks including useState, useEffect, useContext, useReducer, and custom hooks.', 'Frontend Framework', 'Intermediate', 'Frameworks'),
         ('React Router', 'Learn client-side routing in React applications using React Router.', 'Frontend Framework', 'Intermediate', 'Frameworks')
       `);
-      console.log('✅ Added React frameworks');
+      console.log("✅ Added React frameworks");
 
       // Add lessons for React content
       await db.query(`
@@ -40,18 +46,20 @@ async function addColumn() {
         (11, 'Dynamic Routing', 'Master URL parameters, nested routes, and programmatic navigation.', 'Theory', 3),
         (11, 'React Router Quiz', 'Test your knowledge of React Router.', 'Quiz', 4)
       `);
-      console.log('✅ Added React lessons');
+      console.log("✅ Added React lessons");
     } else {
-      console.log('⚠️ React content already exists');
+      console.log("⚠️ React content already exists");
     }
 
     process.exit(0);
   } catch (error: any) {
-    if (error.code === 'ER_DUP_FIELDNAME') {
-      console.log('⚠️ Column already exists');
+    if (error.code === "ER_DUP_FIELDNAME") {
+      console.log("⚠️ Column already exists");
       // Try to add React content anyway
       try {
-        const reactExists = await db.query('SELECT id FROM algorithms WHERE name = "React.js Fundamentals"');
+        const reactExists = await db.query(
+          'SELECT id FROM algorithms WHERE name = "React.js Fundamentals"'
+        );
         if (Array.isArray(reactExists[0]) && reactExists[0].length === 0) {
           await db.query(`
             INSERT INTO algorithms (name, description, category, difficulty, main_category)
@@ -60,14 +68,14 @@ async function addColumn() {
             ('React Hooks Deep Dive', 'Master React Hooks including useState, useEffect, useContext, useReducer, and custom hooks.', 'Frontend Framework', 'Intermediate', 'Frameworks'),
             ('React Router', 'Learn client-side routing in React applications using React Router.', 'Frontend Framework', 'Intermediate', 'Frameworks')
           `);
-          console.log('✅ Added React frameworks');
+          console.log("✅ Added React frameworks");
         }
       } catch (e) {
-        console.error('Error adding React content:', e);
+        console.error("Error adding React content:", e);
       }
       process.exit(0);
     }
-    console.error('❌ Error:', error.message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }

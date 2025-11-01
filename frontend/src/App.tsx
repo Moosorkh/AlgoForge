@@ -1,16 +1,21 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
+import HomeUpdated from "./pages/HomeUpdated";
 import AlgorithmPage from "./pages/AlgorithmPage";
 import LessonPage from "./pages/LessonPage";
+import GamifiedLessonPage from "./pages/GamifiedLessonPage";
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* Use updated home page with all categories */}
+        <Route path="/" element={<HomeUpdated />} />
         <Route path="/algorithm/:id" element={<AlgorithmPage />} />
-        <Route path="/lesson/:id" element={<LessonPage />} />
+        {/* Use gamified lesson page by default */}
+        <Route path="/lesson/:id" element={<GamifiedLessonPage />} />
+        {/* Keep old lesson page for comparison */}
+        <Route path="/lesson-classic/:id" element={<LessonPage />} />
       </Routes>
     </Layout>
   );

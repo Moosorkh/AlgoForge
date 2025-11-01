@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import algorithmRoutes from "./routes/algorithmRoutes";
 import lessonRoutes from "./routes/lessonRoutes";
 import progressRoutes from "./routes/progressRoutes";
+import { db } from "./config/db";
 
 dotenv.config();
 
@@ -14,6 +15,22 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Test database connection
+db.getConnection()
+  .then((connection) => {
+    console.log("✅ Successfully connected to MySQL database");
+    connection.release();
+  })
+  .catch((err) => {
+    console.error("❌ Failed to connect to MySQL database:", err.message);
+    console.error(
+      "⚠️  Please ensure MySQL is running and credentials are correct in .env file"
+    );
+    console.error(
+      "📝 Check DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT in backend/.env"
+    );
+  });
 
 // Routes
 app.use("/api/algorithms", algorithmRoutes);

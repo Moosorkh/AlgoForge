@@ -1,23 +1,25 @@
-import { db } from './config/db';
+import { db } from "./config/db";
 
 async function fixConstraints() {
   try {
     // Drop old check constraint on category
     try {
-      await db.query('ALTER TABLE algorithms DROP CHECK algorithms_chk_1');
-      console.log('✅ Dropped category constraint');
+      await db.query("ALTER TABLE algorithms DROP CHECK algorithms_chk_1");
+      console.log("✅ Dropped category constraint");
     } catch (e: any) {
-      console.log('⚠️ Constraint might not exist or different name');
+      console.log("⚠️ Constraint might not exist or different name");
       // Try to find and drop all check constraints
       const [constraints]: any = await db.query(`
         SELECT CONSTRAINT_NAME 
         FROM information_schema.TABLE_CONSTRAINTS 
         WHERE TABLE_NAME = 'algorithms' AND CONSTRAINT_TYPE = 'CHECK'
       `);
-      
+
       for (const constraint of constraints) {
         try {
-          await db.query(`ALTER TABLE algorithms DROP CHECK ${constraint.CONSTRAINT_NAME}`);
+          await db.query(
+            `ALTER TABLE algorithms DROP CHECK ${constraint.CONSTRAINT_NAME}`
+          );
           console.log(`✅ Dropped constraint: ${constraint.CONSTRAINT_NAME}`);
         } catch (err) {
           console.log(`⚠️ Could not drop ${constraint.CONSTRAINT_NAME}`);
@@ -26,8 +28,10 @@ async function fixConstraints() {
     }
 
     // Now add React content
-    const [reactExists]: any = await db.query('SELECT id FROM algorithms WHERE name = "React.js Fundamentals"');
-    
+    const [reactExists]: any = await db.query(
+      'SELECT id FROM algorithms WHERE name = "React.js Fundamentals"'
+    );
+
     if (reactExists.length === 0) {
       await db.query(`
         INSERT INTO algorithms (name, description, category, difficulty, main_category)
@@ -36,7 +40,7 @@ async function fixConstraints() {
         ('React Hooks Deep Dive', 'Master React Hooks including useState, useEffect, useContext, useReducer, and custom hooks.', 'Frontend Framework', 'Intermediate', 'Frameworks'),
         ('React Router', 'Learn client-side routing in React applications using React Router.', 'Frontend Framework', 'Intermediate', 'Frameworks')
       `);
-      console.log('✅ Added React frameworks');
+      console.log("✅ Added React frameworks");
 
       // Add lessons
       await db.query(`
@@ -55,15 +59,15 @@ async function fixConstraints() {
         (11, 'Dynamic Routing', 'Master URL parameters, nested routes, and programmatic navigation.', 'Theory', 3),
         (11, 'React Router Quiz', 'Test your knowledge of React Router.', 'Quiz', 4)
       `);
-      console.log('✅ Added React lessons');
+      console.log("✅ Added React lessons");
     } else {
-      console.log('⚠️ React content already exists');
+      console.log("⚠️ React content already exists");
     }
 
-    console.log('✅ All done!');
+    console.log("✅ All done!");
     process.exit(0);
   } catch (error: any) {
-    console.error('❌ Error:', error.message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }

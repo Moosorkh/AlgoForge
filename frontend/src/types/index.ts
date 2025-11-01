@@ -40,4 +40,41 @@ export interface UserStats {
   lessons_completed: number;
   lessons_in_progress: number;
   total_lessons_accessed: number;
+  total_points?: number;
+  level?: number;
+  streak?: number;
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  unlocked: boolean;
+  unlockedAt?: string;
+}
+
+export interface LessonProgress {
+  currentStep: number;
+  totalSteps: number;
+  points: number;
+  achievements: Achievement[];
+}
+
+export interface CodeStep {
+  id: number;
+  stepNumber: number;
+  title: string;
+  explanation: string;
+  code: string;
+  highlight?: number[]; // Line numbers to highlight
+  language?: string;
+}
+
+export interface CodeLesson {
+  lessonId: number;
+  algorithmName: string;
+  steps: CodeStep[];
+  finalCode: string;
+  language: string;
 }

@@ -56,8 +56,7 @@ const TopicSection: React.FC<TopicSectionProps> = ({
           <div className="text-left">
             <h3 className="text-2xl font-bold text-gray-900">{title}</h3>
             <p className="text-sm text-gray-600 mt-1">
-              {algorithms.length} algorithm{algorithms.length !== 1 ? "s" : ""}{" "}
-              available
+              {algorithms.length} algorithm{algorithms.length !== 1 ? "s" : ""} available
             </p>
           </div>
         </div>
@@ -197,106 +196,34 @@ const HomeUpdated: React.FC = () => {
   }
 
   // Define category metadata
-  const categoryMetadata: Record<
-    string,
-    { icon: string; color: string; order: number }
-  > = {
-    Sorting: {
-      icon: "🔢",
-      color: "bg-gradient-to-r from-blue-100 to-blue-50",
-      order: 1,
-    },
-    Searching: {
-      icon: "🔍",
-      color: "bg-gradient-to-r from-green-100 to-green-50",
-      order: 2,
-    },
-    Array: {
-      icon: "📊",
-      color: "bg-gradient-to-r from-purple-100 to-purple-50",
-      order: 3,
-    },
-    String: {
-      icon: "📝",
-      color: "bg-gradient-to-r from-yellow-100 to-yellow-50",
-      order: 4,
-    },
-    LinkedList: {
-      icon: "🔗",
-      color: "bg-gradient-to-r from-pink-100 to-pink-50",
-      order: 5,
-    },
-    Stack: {
-      icon: "📚",
-      color: "bg-gradient-to-r from-indigo-100 to-indigo-50",
-      order: 6,
-    },
-    Queue: {
-      icon: "🎫",
-      color: "bg-gradient-to-r from-teal-100 to-teal-50",
-      order: 7,
-    },
-    Tree: {
-      icon: "🌳",
-      color: "bg-gradient-to-r from-green-100 to-emerald-50",
-      order: 8,
-    },
-    Graph: {
-      icon: "🕸️",
-      color: "bg-gradient-to-r from-cyan-100 to-cyan-50",
-      order: 9,
-    },
-    DynamicProgramming: {
-      icon: "⚡",
-      color: "bg-gradient-to-r from-orange-100 to-orange-50",
-      order: 10,
-    },
-    Greedy: {
-      icon: "💰",
-      color: "bg-gradient-to-r from-yellow-100 to-amber-50",
-      order: 11,
-    },
-    Backtracking: {
-      icon: "↩️",
-      color: "bg-gradient-to-r from-red-100 to-red-50",
-      order: 12,
-    },
-    Hashing: {
-      icon: "#️⃣",
-      color: "bg-gradient-to-r from-violet-100 to-violet-50",
-      order: 13,
-    },
-    Heap: {
-      icon: "⛰️",
-      color: "bg-gradient-to-r from-rose-100 to-rose-50",
-      order: 14,
-    },
-    Trie: {
-      icon: "🌲",
-      color: "bg-gradient-to-r from-lime-100 to-lime-50",
-      order: 15,
-    },
-    Math: {
-      icon: "➗",
-      color: "bg-gradient-to-r from-blue-100 to-sky-50",
-      order: 16,
-    },
-    BitManipulation: {
-      icon: "1️⃣0️⃣",
-      color: "bg-gradient-to-r from-gray-100 to-gray-50",
-      order: 17,
-    },
+  const categoryMetadata: Record<string, { icon: string; color: string; order: number }> = {
+    Sorting: { icon: "🔢", color: "bg-gradient-to-r from-blue-100 to-blue-50", order: 1 },
+    Searching: { icon: "🔍", color: "bg-gradient-to-r from-green-100 to-green-50", order: 2 },
+    Array: { icon: "📊", color: "bg-gradient-to-r from-purple-100 to-purple-50", order: 3 },
+    String: { icon: "📝", color: "bg-gradient-to-r from-yellow-100 to-yellow-50", order: 4 },
+    LinkedList: { icon: "🔗", color: "bg-gradient-to-r from-pink-100 to-pink-50", order: 5 },
+    Stack: { icon: "📚", color: "bg-gradient-to-r from-indigo-100 to-indigo-50", order: 6 },
+    Queue: { icon: "🎫", color: "bg-gradient-to-r from-teal-100 to-teal-50", order: 7 },
+    Tree: { icon: "🌳", color: "bg-gradient-to-r from-green-100 to-emerald-50", order: 8 },
+    Graph: { icon: "🕸️", color: "bg-gradient-to-r from-cyan-100 to-cyan-50", order: 9 },
+    DynamicProgramming: { icon: "⚡", color: "bg-gradient-to-r from-orange-100 to-orange-50", order: 10 },
+    Greedy: { icon: "💰", color: "bg-gradient-to-r from-yellow-100 to-amber-50", order: 11 },
+    Backtracking: { icon: "↩️", color: "bg-gradient-to-r from-red-100 to-red-50", order: 12 },
+    Hashing: { icon: "#️⃣", color: "bg-gradient-to-r from-violet-100 to-violet-50", order: 13 },
+    Heap: { icon: "⛰️", color: "bg-gradient-to-r from-rose-100 to-rose-50", order: 14 },
+    Trie: { icon: "🌲", color: "bg-gradient-to-r from-lime-100 to-lime-50", order: 15 },
+    Math: { icon: "➗", color: "bg-gradient-to-r from-blue-100 to-sky-50", order: 16 },
+    BitManipulation: { icon: "1️⃣0️⃣", color: "bg-gradient-to-r from-gray-100 to-gray-50", order: 17 },
   };
 
   // Group algorithms by category
-  const algorithmsByCategory =
-    algorithms?.reduce((acc: Record<string, Algorithm[]>, algo: Algorithm) => {
-      if (!acc[algo.category]) {
-        acc[algo.category] = [];
-      }
-      acc[algo.category].push(algo);
-      return acc;
-    }, {}) || {};
+  const algorithmsByCategory = algorithms?.reduce((acc: Record<string, Algorithm[]>, algo: Algorithm) => {
+    if (!acc[algo.category]) {
+      acc[algo.category] = [];
+    }
+    acc[algo.category].push(algo);
+    return acc;
+  }, {}) || {};
 
   // Sort categories by order
   const sortedCategories = Object.keys(algorithmsByCategory).sort((a, b) => {
@@ -307,15 +234,9 @@ const HomeUpdated: React.FC = () => {
 
   // Calculate stats
   const totalAlgorithms = algorithms?.length || 0;
-  const beginnerCount =
-    algorithms?.filter((a: Algorithm) => a.difficulty === "Beginner").length ||
-    0;
-  const intermediateCount =
-    algorithms?.filter((a: Algorithm) => a.difficulty === "Intermediate")
-      .length || 0;
-  const advancedCount =
-    algorithms?.filter((a: Algorithm) => a.difficulty === "Advanced").length ||
-    0;
+  const beginnerCount = algorithms?.filter((a: Algorithm) => a.difficulty === "Beginner").length || 0;
+  const intermediateCount = algorithms?.filter((a: Algorithm) => a.difficulty === "Intermediate").length || 0;
+  const advancedCount = algorithms?.filter((a: Algorithm) => a.difficulty === "Advanced").length || 0;
 
   return (
     <div className="space-y-8">
@@ -325,9 +246,8 @@ const HomeUpdated: React.FC = () => {
           Master 95+ Interview Algorithms
         </h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6">
-          Complete coverage of all algorithms asked in FAANG and top tech
-          company interviews. Learn through interactive visualizations,
-          step-by-step code building, and gamified lessons!
+          Complete coverage of all algorithms asked in FAANG and top tech company interviews.
+          Learn through interactive visualizations, step-by-step code building, and gamified lessons!
         </p>
         <div className="flex justify-center gap-4 text-sm">
           <span className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold">
@@ -360,10 +280,7 @@ const HomeUpdated: React.FC = () => {
             title={category.replace(/([A-Z])/g, " $1").trim()} // Add spaces to camelCase
             icon={categoryMetadata[category]?.icon || "📌"}
             algorithms={algorithmsByCategory[category]}
-            colorScheme={
-              categoryMetadata[category]?.color ||
-              "bg-gradient-to-r from-gray-100 to-gray-50"
-            }
+            colorScheme={categoryMetadata[category]?.color || "bg-gradient-to-r from-gray-100 to-gray-50"}
           />
         ))}
       </section>
@@ -383,11 +300,15 @@ const HomeUpdated: React.FC = () => {
           <p className="text-gray-600">Categories</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
-          <h3 className="text-3xl font-bold text-purple-600 mb-2">100%</h3>
+          <h3 className="text-3xl font-bold text-purple-600 mb-2">
+            100%
+          </h3>
           <p className="text-gray-600">Interview Coverage</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
-          <h3 className="text-3xl font-bold text-orange-600 mb-2">5+</h3>
+          <h3 className="text-3xl font-bold text-orange-600 mb-2">
+            5+
+          </h3>
           <p className="text-gray-600">Lesson Types</p>
         </div>
       </section>

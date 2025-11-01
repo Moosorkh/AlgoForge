@@ -7,7 +7,10 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "db:migrate": "node dist/database/migrate.js"
+    "db:migrate": "node dist/database/migrate.js",
+    "db:setup": "ts-node src/setup-mysql.ts",
+    "db:seed": "ts-node src/load-seed.ts",
+    "db:check": "ts-node src/check-data.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
